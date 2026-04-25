@@ -68,7 +68,7 @@ export const Building = ({ data, index }: { data: typeof BUILDINGS[0]; index: nu
 
   return (
     <g className="building-group">
-      <rect x={x + w} y={400 - h} width={w * 0.15} height={h} fill="black" opacity="0.05" transform={`skewY(-5) translate(0, ${x * 0.01})`} />
+      {/* <rect x={x + w} y={400 - h} width={w * 0.15} height={h} fill="black" opacity="0.05" transform={`skewY(-5) translate(0, ${x * 0.01})`} /> */}
       
       {/* building */}
       {renderShape()}
