@@ -29,12 +29,12 @@ export const Bridge = ({ bridgeRef }: BridgeProps) => {
       className="absolute bottom-[8%] left-0 w-full h-[85%] text-[#666666]"
       viewBox="0 0 1200 400"
       preserveAspectRatio="xMidYMid slice"
-      fill="currentColor"
+      fill="#a17f51"
     >
       <g transform="translate(200, 20)">
         <path d="M0,380 L22,380 L22,0 L0,0 Z M48,380 L70,380 L70,0 L48,0 Z" />
-        <rect x="4" y="0" width="14" height="380" opacity="0.15" fill="black" />
-        <rect x="52" y="0" width="14" height="380" opacity="0.15" fill="black" />
+        <rect x="4" y="0" width="14" height="380" opacity="0.55" fill="#f2b25e" />
+        <rect x="52" y="0" width="14" height="380" opacity="0.55" fill="#f2b25e" />
         {[45, 105, 165, 225, 285, 345].map((y, i) => (
           <g key={`t1-truss-${i}`}>
             <rect x="22" y={y} width="26" height="8" />
@@ -46,15 +46,15 @@ export const Bridge = ({ bridgeRef }: BridgeProps) => {
 
       <g transform="translate(930, 80) scale(0.7)">
         <path d="M0,380 L22,380 L22,0 L0,0 Z M48,380 L70,380 L70,0 L48,0 Z" />
-        <rect x="4" y="0" width="14" height="380" opacity="0.15" fill="black" />
-        <rect x="52" y="0" width="14" height="380" opacity="0.15" fill="black" />
+        <rect x="4" y="0" width="14" height="380" opacity="0.55" fill="#f2b25e" />
+        <rect x="52" y="0" width="14" height="380" opacity="0.55" fill="#f2b25e" />
         {[50, 150, 250, 350].map((y, i) => (
            <rect key={`t2-t-${i}`} x="22" y={y} width="26" height="12" />
         ))}
       </g>
 
       {/* cables*/}
-      <g stroke="black" opacity="0.15">
+      <g stroke="#f2b25e" opacity="0.55">
         <path ref={pathRef} d="M0,180 C 100,280 220,280 220,20 C 500,320 850,300 945,85 L 965,85 C 1100,150 1200,80 1200,80" fill="none" strokeWidth="3" />
       </g>
       

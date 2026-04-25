@@ -29,6 +29,15 @@ export const Building = ({ data, index }: { data: typeof BUILDINGS[0]; index: nu
     return wins;
   }, [rows, cols, index]);
 
+  const salesforcePath = `
+    M ${x},400 
+    L ${x + w * 0.1},${400 - h * 0.8} 
+    Q ${x + w * 0.2},${400 - h} ${x + w * 0.5},${400 - h} 
+    Q ${x + w * 0.8},${400 - h} ${x + w * 0.9},${400 - h * 0.8} 
+    L ${x + w},400 
+    Z
+  `;
+
   const renderShape = () => {
     switch (type) {
       case "stepped":
@@ -50,6 +59,8 @@ export const Building = ({ data, index }: { data: typeof BUILDINGS[0]; index: nu
         return (
           <path d={`M${x},400 L${x},${400 - h + 30} Q${x + w / 2},${400 - h - 20} ${x + w},${400 - h + 30} L${x + w},400 Z`} fill={color} />
         );
+      case "salesforce":
+        return <path d={salesforcePath} fill={color} />;
       default:
         return <rect x={x} y={400 - h} width={w} height={h} fill={color} />;
     }
@@ -64,18 +75,27 @@ export const Building = ({ data, index }: { data: typeof BUILDINGS[0]; index: nu
       
       {/* windows */}
       <g transform={`translate(${x + 4}, ${400 - h + 10})`}>
-        {windowElements.map((win, i) => (
-          <rect
-            key={i}
-            x={win.c * 6}
-            y={win.r * 8}
-            width="2.5"
-            height="3.5"
-            fill={win.glow ? "#B8860B" : "#888888"}
-            opacity={win.opacity * 0.6}
-            filter={win.glow ? "url(#windowGlow)" : undefined}
-          />
-        ))}
+        {type === "salesforce" && (
+          <defs>
+            <clipPath id={`clip-salesforce-${index}`}>
+              <path d={salesforcePath} transform={`translate(${-x - 4}, ${-(400 - h + 10)})`} />
+            </clipPath>
+          </defs>
+        )}
+        <g clipPath={type === "salesforce" ? `url(#clip-salesforce-${index})` : undefined}>
+          {windowElements.map((win, i) => (
+            <rect
+              key={i}
+              x={win.c * 6}
+              y={win.r * 8}
+              width="2.5"
+              height="3.5"
+              fill={win.glow ? "#B8860B" : "#888888"}
+              opacity={win.opacity * 0.6}
+              filter={win.glow ? "url(#windowGlow)" : undefined}
+            />
+          ))}
+        </g>
       </g>
       
       <circle cx={x + w / 2} cy={400 - h - 2} r="1.5" fill="#FF4D4D" opacity="0.8">

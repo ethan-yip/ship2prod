@@ -6,7 +6,7 @@ export const BUILDINGS = [
   { x: 290, w: 55, h: 140, color: "#E5E5E5", windows: 110, type: "rect" },
   { x: 360, w: 70, h: 280, color: "#F0F0F0", windows: 200, type: "stepped" },
   { x: 440, w: 50, h: 190, color: "#E8E8E8", windows: 130, type: "rect" },
-  { x: 500, w: 80, h: 320, color: "#ECECEC", windows: 240, type: "rounded" },
+  { x: 500, w: 80, h: 320, color: "#ECECEC", windows: 240, type: "salesforce" },
   { x: 590, w: 55, h: 210, color: "#E1E1E1", windows: 140, type: "rect" },
   { x: 660, w: 45, h: 170, color: "#EAEAEA", windows: 100, type: "stepped" },
   { x: 720, w: 60, h: 240, color: "#EFEFEF", windows: 180, type: "rect" },

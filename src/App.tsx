@@ -166,7 +166,6 @@ export default function App() {
         className="relative w-full h-screen"
       >
         <Marquee />
-        <div className="noise-overlay" />
         <div className="absolute top-0 w-full h-full z-0 overflow-hidden pointer-events-none">
           {/* atmosphere */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#FDFDFD] to-[#FDFDFD]" />
@@ -176,11 +175,15 @@ export default function App() {
         {/* Big Background Text */}
         <div 
           ref={bgTextRef}
-          className="absolute top-[2%] flex items-center justify-center pointer-events-none select-none overflow-hidden"
+          className="absolute top-[2%] w-full flex items-center pointer-events-none select-none overflow-hidden"
         >
-          <h1 className="text-[20vw] font-black text-black opacity-[0.03] whitespace-nowrap tracking-tighter uppercase">
-            ycombinator
-          </h1>
+          <div className="flex whitespace-nowrap animate-marquee-reverse">
+            {[...Array(4)].map((_, i) => (
+              <h1 key={i} className="text-[20vw] font-black text-black opacity-[0.05] tracking-tighter uppercase px-20">
+                ycombinator
+              </h1>
+            ))}
+          </div>
         </div>
 
           <Skyline skylineRef={skylineRef} />

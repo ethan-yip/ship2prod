@@ -9,7 +9,8 @@ export const Water = ({ waveRef1, waveRef2 }: WaterProps) => {
       {/* reflection */}
       <div className="absolute bottom-0 w-full h-[45vh] z-20">
         <div className="absolute inset-0 bg-gradient-to-t from-[#FDFDFD] via-[#FDFDFD]/90 to-transparent" />
-        
+        <div className="noise-overlay" />
+
         <div className="absolute inset-0 opacity-10">
           <svg
             ref={waveRef1}
