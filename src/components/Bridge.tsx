@@ -1,8 +1,28 @@
+import React from 'react';
+
 interface BridgeProps {
   bridgeRef: React.RefObject<SVGSVGElement | null>;
 }
 
 export const Bridge = ({ bridgeRef }: BridgeProps) => {
+  const [cablePoints, setCablePoints] = React.useState<{x: number, y: number}[]>([]);
+  const pathRef = React.useRef<SVGPathElement>(null);
+
+  React.useEffect(() => {
+    if (pathRef.current) {
+      const path = pathRef.current;
+      const length = path.getTotalLength();
+      const points = [];
+      const numCables = 150;
+      
+      for (let i = 0; i <= numCables; i++) {
+        const point = path.getPointAtLength((i / numCables) * length);
+        points.push({ x: point.x, y: point.y });
+      }
+      setCablePoints(points);
+    }
+  }, []);
+
   return (
     <svg
       ref={bridgeRef}
@@ -35,23 +55,13 @@ export const Bridge = ({ bridgeRef }: BridgeProps) => {
 
       {/* cables*/}
       <g stroke="black" opacity="0.15">
-        <path d="M0,180 C 100,280 220,280 220,20" fill="none" strokeWidth="3" />
-        <path d="M220,20 C 500,320 850,300 945,85" fill="none" strokeWidth="3" />
-        <path d="M965,85 C 1100,150 1200,80 1200,80" fill="none" strokeWidth="2" />
+        <path ref={pathRef} d="M0,180 C 100,280 220,280 220,20 C 500,320 850,300 945,85 L 965,85 C 1100,150 1200,80 1200,80" fill="none" strokeWidth="3" />
       </g>
       
       <g opacity="0.4">
-        {[...Array(120)].map((_, i) => {
-          const x = 220 + i * 6.04;
-          if (x > 945) return null;
-          const relX = (x - 220) / 725;
-          const t = relX;
-          const yStart = 
-            Math.pow(1 - t, 3) * 20 + 
-            3 * Math.pow(1 - t, 2) * t * 320 + 
-            3 * (1 - t) * Math.pow(t, 2) * 300 + 
-            Math.pow(t, 3) * 85;
-          return <rect key={`s-${i}`} x={x} y={yStart} width="0.5" height={400} fill="black" opacity={0.25} />;
+        {cablePoints.map((p, i) => {
+          if ((p.x >= 220 && p.x <= 270) || (p.x >= 930 && p.x <= 980)) return null;
+          return <rect key={`s-${i}`} x={p.x} y={p.y} width="0.5" height={360 - p.y} fill="black" opacity={0.2} />;
         })}
       </g>
 
