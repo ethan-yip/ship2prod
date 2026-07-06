@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Lenis from "lenis";
 import { Skyline } from "./components/Skyline";
@@ -9,6 +9,7 @@ import { Marquee } from "./components/Marquee";
 import { Details } from "./components/Details";
 
 export default function App() {
+  const [ready, setReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const skylineRef = useRef<SVGSVGElement>(null);
@@ -44,40 +45,47 @@ export default function App() {
     };
   }, []);
 
+  // Gate the intro on fonts + window load so the title doesn't animate
+  // from a pre-font-metric position or flash unstyled text.
+  useEffect(() => {
+    let cancelled = false;
+    const start = async () => {
+      try {
+        if (document.fonts?.ready) await document.fonts.ready;
+      } catch {
+        // ignore
+      }
+      if (!cancelled) requestAnimationFrame(() => setReady(true));
+    };
+    if (document.readyState === "complete") {
+      start();
+    } else {
+      window.addEventListener("load", start, { once: true });
+      return () => {
+        cancelled = true;
+        window.removeEventListener("load", start);
+      };
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Lock scroll while the intro is gated so the user can't slide past
+  // the hero behind the loading overlay.
+  useEffect(() => {
+    if (ready) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [ready]);
+
+  // Ambient wave loops + mouse parallax — persistent, safe to start
+  // before fonts load since they don't depend on layout metrics.
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Immediate sets run synchronously before first paint so the reveal
-      // box doesn't flash in its default position before the sweep begins.
-      gsap.set([contentRef.current, subtitleRef.current], { opacity: 0 });
-      gsap.set(bgTextRef.current, { opacity: 0, y: 100 });
-      gsap.set(titleRef.current, {
-        y: () => {
-          const titleBounds = titleRef.current?.getBoundingClientRect();
-          if (!titleBounds) return 0;
-          const centerY = window.innerHeight / 2;
-          const currentY = titleBounds.top + titleBounds.height / 2;
-          return centerY - currentY;
-        },
-        scale: 1.1,
-        opacity: 1,
-        color: "#1A1A1A",
-        clipPath: "inset(0 100% 0 0)",
-      });
-      gsap.set(revealBoxRef.current, {
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        xPercent: -50,
-        yPercent: -50,
-        width: "60vw",
-        height: "15vh",
-        backgroundColor: "#1A1A1A",
-        scaleX: 0,
-        transformOrigin: "left",
-        zIndex: 150,
-        opacity: 1,
-      });
-
       gsap.to(waveRef1.current, {
         x: "-50%",
         duration: 25,
@@ -90,55 +98,6 @@ export default function App() {
         repeat: -1,
         ease: "sine.inOut",
       });
-
-      const tl = gsap.timeline();
-
-      tl.to(revealBoxRef.current, {
-        scaleX: 1,
-        duration: 0.7,
-        ease: "expo.inOut"
-      });
-
-      tl.to(revealBoxRef.current, {
-        xPercent: 50,
-        scaleX: 0,
-        transformOrigin: "right",
-        duration: 0.7,
-        ease: "expo.out"
-      }, "+=0.05");
-
-      tl.to(titleRef.current, {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 0.7,
-        ease: "expo.out"
-      }, "<");
-
-      tl.to(titleRef.current, {
-        y: 0,
-        scale: 1,
-        duration: 1.4,
-        ease: "expo.out"
-      }, "+=0.2");
-
-      tl.to(contentRef.current, {
-        opacity: 1,
-        duration: 1.6,
-        ease: "expo.inOut"
-      }, "-=1.2");
-
-      tl.to(bgTextRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.4,
-        ease: "power3.out"
-      }, "-=1.0");
-
-      tl.to(subtitleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.1,
-        ease: "power4.out"
-      }, "-=0.7");
 
       const skyX = gsap.quickTo(skylineRef.current, "x", { duration: 1.2, ease: "power2.out" });
       const skyY = gsap.quickTo(skylineRef.current, "y", { duration: 1.2, ease: "power2.out" });
@@ -170,15 +129,108 @@ export default function App() {
       window.addEventListener("mousemove", handleMouseMove);
       return () => window.removeEventListener("mousemove", handleMouseMove);
     }, containerRef);
-    
+
     return () => ctx.revert();
   }, []);
+
+  // Ready-gated intro. Runs only after fonts + window.load so the title
+  // measures at its final font metrics and no unstyled flash occurs.
+  useLayoutEffect(() => {
+    if (!ready) return;
+    const ctx = gsap.context(() => {
+      gsap.set([contentRef.current, subtitleRef.current], { opacity: 0 });
+      gsap.set(bgTextRef.current, { opacity: 0, y: 100 });
+      gsap.set(titleRef.current, {
+        y: () => {
+          const titleBounds = titleRef.current?.getBoundingClientRect();
+          if (!titleBounds) return 0;
+          const centerY = window.innerHeight / 2;
+          const currentY = titleBounds.top + titleBounds.height / 2;
+          return centerY - currentY;
+        },
+        scale: 1.1,
+        opacity: 1,
+        color: "#1A1A1A",
+        clipPath: "inset(0 100% 0 0)",
+      });
+      gsap.set(revealBoxRef.current, {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        width: "60vw",
+        height: "15vh",
+        backgroundColor: "#1A1A1A",
+        scaleX: 0,
+        transformOrigin: "left",
+        zIndex: 150,
+        opacity: 1,
+      });
+
+      const tl = gsap.timeline();
+
+      tl.to(revealBoxRef.current, {
+        scaleX: 1,
+        duration: 0.5,
+        ease: "expo.inOut",
+      });
+
+      tl.to(revealBoxRef.current, {
+        xPercent: 50,
+        scaleX: 0,
+        transformOrigin: "right",
+        duration: 0.5,
+        ease: "expo.out",
+      }, "+=0.04");
+
+      tl.to(titleRef.current, {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.5,
+        ease: "expo.out",
+      }, "<");
+
+      tl.to(titleRef.current, {
+        y: 0,
+        scale: 1,
+        duration: 1.0,
+        ease: "expo.out",
+      }, "+=0.15");
+
+      tl.to(contentRef.current, {
+        opacity: 1,
+        duration: 1.1,
+        ease: "expo.inOut",
+      }, "-=0.85");
+
+      tl.to(bgTextRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: "power3.out",
+      }, "-=0.7");
+
+      tl.to(subtitleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power4.out",
+      }, "-=0.5");
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [ready]);
 
   return (
     <div
       ref={containerRef}
       className="relative w-full min-h-screen bg-[#FDFDFD] overflow-x-hidden text-[#1A1A1A]"
     >
+      {/* Load gate: covers the scene at #FDFDFD until fonts + resources
+          are ready, then the intro plays. */}
+      {!ready && (
+        <div className="fixed inset-0 z-[200] bg-[#FDFDFD]" />
+      )}
       <section className="relative w-full h-screen overflow-hidden">
       <div
         ref={contentRef}

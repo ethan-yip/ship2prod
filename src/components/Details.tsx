@@ -43,6 +43,35 @@ const Divider = () => (
 export const Details = () => {
   return (
     <main className="relative w-full bg-[#FDFDFD] text-[#1A1A1A] z-40">
+      {/* Seam bridge from the hero: faint wave lines continuing the
+          water pattern downward + a soft warm glow. Continuity across
+          the section boundary, no color gradient (which itself creates
+          an edge). */}
+      <div className="pointer-events-none absolute top-0 inset-x-0 h-48 md:h-64 overflow-hidden">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-[#D4AF37] opacity-[0.04] blur-[120px] rounded-full" />
+        <svg
+          className="absolute top-0 left-0 w-full h-full"
+          viewBox="0 0 2000 200"
+          preserveAspectRatio="none"
+          fill="none"
+          stroke="#1A1A1A"
+          strokeWidth="0.5"
+        >
+          {[...Array(8)].map((_, i) => {
+            const y = 4 + i * 14;
+            const amp = 6 + i * 0.6;
+            const pathOpacity = Math.max(0.015, 0.09 - i * 0.012);
+            return (
+              <path
+                key={`d-${i}`}
+                d={`M0,${y} Q250,${y + amp} 500,${y} T1000,${y} T1500,${y} T2000,${y}`}
+                opacity={pathOpacity}
+              />
+            );
+          })}
+        </svg>
+      </div>
+
       {/* about */}
       <section className="relative px-6 md:px-12 pt-32 md:pt-48 pb-16 md:pb-20">
         <div className="max-w-4xl mx-auto text-center">
