@@ -1,6 +1,6 @@
 export const Marquee = () => {
   const details = [
-    "200 curated Top VCs, Founders, Researchers in AI",
+    "100 curated Top VCs, Founders, Researchers in AI",
     "Invitation-only Yacht Gala",
     "San Francisco Bay • Black Tie",
     "Live Product Demonstrations • No Slides",

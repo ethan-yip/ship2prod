@@ -31,7 +31,7 @@ export const Water = ({ waveRef1, waveRef2 }: WaterProps) => {
           </svg>
         </div>
 
-        <div className="absolute top-0 w-full h-full backdrop-blur-[1.5px]" />
+        <div className="absolute top-0 w-full h-full bg-gradient-to-b from-[#FDFDFD]/20 via-transparent to-[#FDFDFD]/30" />
         <div className="absolute bottom-0 w-full h-[15vh] bg-gradient-to-t from-[#D4AF37]/5 to-transparent" />
       </div>
 

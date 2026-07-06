@@ -84,16 +84,36 @@ export const Building = ({ data, index }: { data: typeof BUILDINGS[0]; index: nu
         )}
         <g clipPath={type === "salesforce" ? `url(#clip-salesforce-${index})` : undefined}>
           {windowElements.map((win, i) => (
-            <rect
-              key={i}
-              x={win.c * 6}
-              y={win.r * 8}
-              width="2.5"
-              height="3.5"
-              fill={win.glow ? "#B8860B" : "#888888"}
-              opacity={win.opacity * 0.6}
-              filter={win.glow ? "url(#windowGlow)" : undefined}
-            />
+            win.glow ? (
+              <g key={i}>
+                <rect
+                  x={win.c * 6 - 1.75}
+                  y={win.r * 8 - 1.75}
+                  width="6"
+                  height="7"
+                  fill="#B8860B"
+                  opacity={win.opacity * 0.18}
+                />
+                <rect
+                  x={win.c * 6}
+                  y={win.r * 8}
+                  width="2.5"
+                  height="3.5"
+                  fill="#B8860B"
+                  opacity={win.opacity * 0.7}
+                />
+              </g>
+            ) : (
+              <rect
+                key={i}
+                x={win.c * 6}
+                y={win.r * 8}
+                width="2.5"
+                height="3.5"
+                fill="#888888"
+                opacity={win.opacity * 0.6}
+              />
+            )
           ))}
         </g>
       </g>
@@ -118,13 +138,6 @@ export const Skyline = ({ skylineRef }: SkylineProps) => {
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
-        <filter id="windowGlow">
-          <feGaussianBlur stdDeviation="1" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
         <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="rgba(212,175,55,0.05)" />
           <stop offset="100%" stopColor="rgba(0,0,0,0)" />

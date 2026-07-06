@@ -5,6 +5,12 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ship2Prod</title>
+    <script>
+      // Always land on the hero on refresh; the intro plays on every load,
+      // so restoring a prior scroll position would desync it with the reveal.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    </script>
   </head>
   <body>
     <div id="root"></div>
