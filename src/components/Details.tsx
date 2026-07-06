@@ -97,9 +97,9 @@ export const Details = () => {
           <p className="mt-12 text-base md:text-lg font-sans font-light text-[#333333] leading-relaxed tracking-wide max-w-2xl mx-auto">
             Ship 2 Prod is a curated black-tie yacht gala for the most active
             builders, researchers, and investors in artificial intelligence.
-            One hundred people. One night on the San Francisco Bay. Not a
-            conference. A room engineered for the kind of high-density
-            interaction that changes what you work on next.
+            One hundred people. One evening on the San Francisco Bay. A
+            density rare enough that a single conversation could shape
+            what you build next.
           </p>
 
           {/* sponsors */}
