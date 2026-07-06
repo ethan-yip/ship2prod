@@ -24,7 +24,6 @@ const DEFAULT_SIZE = "h-8 md:h-10";
 const SPONSORS: Sponsor[] = [
   { name: "Resonance", src: "/sponsors/resonance.svg", href: "https://rsnc.ai" },
   { name: "Scale by GMI Cloud", src: "/sponsors/gmi.png", href: "https://www.gmicloud.ai" },
-  { name: "Beta Fund", src: "/sponsors/beta.png", href: "https://beta.capital", size: "h-24 md:h-28", wrap: "-mx-4 md:-mx-6" },
   { name: "Clean", src: "/sponsors/clean.png", href: "https://www.tryclean.ai" },
   { name: "Photon Framework", src: "/sponsors/photon.png", href: "https://photon.codes" },
   { name: "Soma Capital", src: "/sponsors/soma.png", href: "https://somacap.com" },
