@@ -3,8 +3,9 @@
 // data/confirmations.json, so the CRM picks them up on its next build.
 //
 // Env vars (set on Vercel):
-//   GITHUB_TOKEN            — fine-grained PAT with Contents: Read/Write on
-//                             The-Resonance-Lab/S2P-CRM.
+//   GITHUB_TOKENS           — fine-grained PAT with Contents: Read/Write on
+//                             The-Resonance-Lab/S2P-CRM. (GITHUB_TOKEN also
+//                             accepted as a fallback name.)
 //   CONFIRMATIONS_REPO      — defaults to "The-Resonance-Lab/S2P-CRM".
 //   CONFIRMATIONS_PATH      — defaults to "data/confirmations.json".
 //   CONFIRMATIONS_BRANCH    — defaults to "main".
@@ -98,20 +99,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  const token = process.env.GITHUB_TOKEN;
+  // Vercel env var is named GITHUB_TOKENS in the ship2prod project — accept
+  // either name so this keeps working if the var is ever renamed.
+  const token = process.env.GITHUB_TOKENS || process.env.GITHUB_TOKEN;
   if (!token) {
-    // Temporary diagnostic: list env var names visible to this function
-    // (values redacted) so we can tell if the name is off or the var is
-    // scoped to the wrong environment.
-    const visible = Object.keys(process.env)
-      .filter((k) => /token|github|vercel_env/i.test(k))
-      .sort();
     return res.status(503).json({
-      error: "RSVP backend not configured yet. GITHUB_TOKEN missing on the server.",
-      diagnostic: {
-        vercelEnv: process.env.VERCEL_ENV ?? null,
-        matchingEnvVarNames: visible,
-      },
+      error: "RSVP backend not configured yet. GitHub token missing on the server.",
     });
   }
 
