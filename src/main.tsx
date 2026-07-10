@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { DressCode } from './components/DressCode'
 import { EventDetails } from './components/EventDetails'
+import { Guestlist } from './components/Guestlist'
 
 import '@fontsource-variable/playfair-display/wght';
 import '@fontsource-variable/montserrat/wght';
@@ -14,7 +15,9 @@ const Root = path === '/dress-code'
   ? DressCode
   : path === '/event-details'
     ? EventDetails
-    : App;
+    : path === '/guestlist'
+      ? Guestlist
+      : App;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
