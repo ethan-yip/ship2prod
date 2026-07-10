@@ -179,7 +179,7 @@ export const Guestlist = () => {
             {GUESTS.length} Aboard &nbsp;·&nbsp; Confirmed Only
           </p>
           <Divider />
-          <p className="mt-10 text-sm md:text-base font-sans font-light text-[#333333] leading-relaxed tracking-wide max-w-xl mx-auto">
+          <p className="mt-10 text-base md:text-lg font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide max-w-xl mx-auto">
             Founders, researchers, and investors joining us aboard the
             Black-Tie AI Yacht Gala. A single evening on the San Francisco Bay.
           </p>
@@ -190,7 +190,7 @@ export const Guestlist = () => {
       <section className="relative px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-4 border-b border-[#1A1A1A]/15 py-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" className="h-4 w-4 text-[#888888] shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" className="h-4 w-4 text-[#666666] shrink-0">
               <circle cx="11" cy="11" r="7" />
               <path d="M20 20l-3.5-3.5" strokeLinecap="round" />
             </svg>
@@ -198,9 +198,9 @@ export const Guestlist = () => {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search by name, company, or affiliation…"
-              className="flex-1 bg-transparent border-none outline-none text-[#1A1A1A] placeholder:text-[#999999] text-sm md:text-base font-sans font-light tracking-wide"
+              className="flex-1 bg-transparent border-none outline-none text-[#1A1A1A] placeholder:text-[#888888] text-base md:text-lg font-sans font-normal tracking-wide"
             />
-            <span className="text-[10px] font-sans tracking-[0.35em] uppercase text-[#888888] shrink-0 tabular-nums">
+            <span className="text-[11px] md:text-xs font-sans tracking-[0.25em] uppercase text-[#666666] shrink-0 tabular-nums">
               {filtered.length}/{GUESTS.length}
             </span>
           </div>
@@ -216,14 +216,14 @@ export const Guestlist = () => {
                   type="button"
                   onClick={() => toggleFlag(flag)}
                   className={
-                    "group inline-flex items-baseline gap-2 text-[10px] md:text-xs font-sans tracking-[0.35em] uppercase transition-colors duration-300 pb-1 border-b " +
+                    "group inline-flex items-baseline gap-2 text-[11px] md:text-[13px] font-sans tracking-[0.25em] uppercase transition-colors duration-300 pb-1 border-b " +
                     (active
                       ? "text-[#1A1A1A] border-[#1A1A1A]"
-                      : "text-[#888888] border-transparent hover:text-[#1A1A1A] hover:border-[#1A1A1A]/30")
+                      : "text-[#555555] border-transparent hover:text-[#1A1A1A] hover:border-[#1A1A1A]/40")
                   }
                 >
                   {label}
-                  <span className="text-[9px] tracking-[0.25em] text-[#999999] tabular-nums">
+                  <span className="text-[10px] tracking-[0.2em] text-[#777777] tabular-nums">
                     {count}
                   </span>
                 </button>
@@ -233,7 +233,7 @@ export const Guestlist = () => {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-[10px] md:text-xs font-sans tracking-[0.35em] uppercase text-[#999999] hover:text-[#1A1A1A] transition-colors duration-300 pb-1"
+                className="text-[11px] md:text-[13px] font-sans tracking-[0.25em] uppercase text-[#777777] hover:text-[#1A1A1A] transition-colors duration-300 pb-1"
               >
                 Clear
               </button>
@@ -268,7 +268,7 @@ export const Guestlist = () => {
             >
               Return to Ship 2 Prod
             </a>
-            <p className="text-[10px] font-sans tracking-[0.5em] uppercase text-[#666666] opacity-60 mt-16">
+            <p className="text-[11px] md:text-xs font-sans tracking-[0.35em] uppercase text-[#555555] mt-16">
               See a mistake?{" "}
               <a
                 href="mailto:ethan@rsnc.ai?subject=Yacht%20Gala%20guest%20list%20correction"
@@ -277,7 +277,7 @@ export const Guestlist = () => {
                 ethan@rsnc.ai
               </a>
             </p>
-            <p className="text-[10px] font-sans tracking-[0.5em] uppercase text-[#666666] opacity-60 mt-6">
+            <p className="text-[10px] font-sans tracking-[0.5em] uppercase text-[#666666] opacity-70 mt-6">
               San Francisco &nbsp;•&nbsp; 2026
             </p>
           </div>
@@ -303,7 +303,7 @@ function GuestCard({ guest: g }: { guest: PublicGuest }) {
             {g.name}
           </h2>
           {primaryLine && (
-            <div className="mt-1.5 text-[10px] md:text-[11px] font-sans tracking-[0.25em] uppercase font-light text-[#666666] line-clamp-2 leading-snug">
+            <div className="mt-1.5 text-[13px] md:text-sm font-sans font-normal tracking-wide text-[#3A3A3A] line-clamp-2 leading-snug">
               {primaryLine}
             </div>
           )}
@@ -311,19 +311,19 @@ function GuestCard({ guest: g }: { guest: PublicGuest }) {
       </div>
 
       {g.context && (
-        <p className="mt-4 text-[13px] font-serif italic font-light text-[#7A6338] leading-relaxed line-clamp-3">
+        <p className="mt-4 text-sm md:text-[15px] font-serif italic font-normal text-[#5A4028] leading-relaxed line-clamp-3">
           {g.context}
         </p>
       )}
 
       <div className="mt-5 pt-3 border-t border-[#1A1A1A]/10 flex items-center justify-between">
-        <div className="flex items-center gap-3 text-[#999999]">
+        <div className="flex items-center gap-3 text-[#777777]">
           {g.githubUrl && <SocialIcon href={g.githubUrl} kind="github" />}
           {g.twitterUrl && <SocialIcon href={g.twitterUrl} kind="twitter" />}
           {g.websiteUrl && <SocialIcon href={g.websiteUrl} kind="website" />}
         </div>
         {g.location && (
-          <span className="text-[9px] font-sans tracking-[0.35em] uppercase text-[#999999] truncate ml-2">
+          <span className="text-[10px] md:text-[11px] font-sans tracking-[0.2em] uppercase text-[#666666] truncate ml-2">
             {g.location}
           </span>
         )}
