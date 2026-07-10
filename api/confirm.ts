@@ -100,9 +100,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
+    // Temporary diagnostic: list env var names visible to this function
+    // (values redacted) so we can tell if the name is off or the var is
+    // scoped to the wrong environment.
+    const visible = Object.keys(process.env)
+      .filter((k) => /token|github|vercel_env/i.test(k))
+      .sort();
     return res.status(503).json({
-      error:
-        "RSVP backend not configured yet. GITHUB_TOKEN missing on the server.",
+      error: "RSVP backend not configured yet. GITHUB_TOKEN missing on the server.",
+      diagnostic: {
+        vercelEnv: process.env.VERCEL_ENV ?? null,
+        matchingEnvVarNames: visible,
+      },
     });
   }
 
