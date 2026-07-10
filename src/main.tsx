@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
+import { Confirm } from './components/Confirm'
 import { DressCode } from './components/DressCode'
 import { EventDetails } from './components/EventDetails'
 import { Guestlist } from './components/Guestlist'
@@ -17,7 +18,9 @@ const Root = path === '/dress-code'
     ? EventDetails
     : path === '/guestlist'
       ? Guestlist
-      : App;
+      : path === '/confirm'
+        ? Confirm
+        : App;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

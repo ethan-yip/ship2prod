@@ -1,0 +1,171 @@
+// Public RSVP endpoint. Receives POSTs from the /confirm page and commits
+// each confirmation into the private S2P-CRM repo as a row in
+// data/confirmations.json, so the CRM picks them up on its next build.
+//
+// Env vars (set on Vercel):
+//   GITHUB_TOKEN            — fine-grained PAT with Contents: Read/Write on
+//                             The-Resonance-Lab/S2P-CRM.
+//   CONFIRMATIONS_REPO      — defaults to "The-Resonance-Lab/S2P-CRM".
+//   CONFIRMATIONS_PATH      — defaults to "data/confirmations.json".
+//   CONFIRMATIONS_BRANCH    — defaults to "main".
+
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+
+const REPO = process.env.CONFIRMATIONS_REPO || "The-Resonance-Lab/S2P-CRM";
+const PATH = process.env.CONFIRMATIONS_PATH || "data/confirmations.json";
+const BRANCH = process.env.CONFIRMATIONS_BRANCH || "main";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type Confirmation = {
+  id: string;
+  submittedAt: string;
+  name: string;
+  email: string;
+  company: string | null;
+  dietary: string | null;
+  plusOneName: string | null;
+  notes: string | null;
+  userAgent: string | null;
+};
+
+function nid() {
+  return (
+    Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 8) +
+    Math.random().toString(36).slice(2, 6)
+  );
+}
+
+function ghHeaders(token: string) {
+  return {
+    Authorization: `Bearer ${token}`,
+    "X-GitHub-Api-Version": "2022-11-28",
+    Accept: "application/vnd.github+json",
+    "User-Agent": "ship2prod-rsvp",
+  } as Record<string, string>;
+}
+
+async function readList(token: string): Promise<{ list: Confirmation[]; sha?: string }> {
+  const url = `https://api.github.com/repos/${REPO}/contents/${encodeURIComponent(PATH)}?ref=${encodeURIComponent(BRANCH)}`;
+  const r = await fetch(url, { headers: ghHeaders(token) });
+  if (r.status === 404) return { list: [] };
+  if (!r.ok) throw new Error(`GitHub read failed: ${r.status} ${await r.text()}`);
+  const meta = (await r.json()) as { content: string; sha: string; encoding?: string };
+  try {
+    const decoded = Buffer.from(meta.content, "base64").toString("utf8");
+    const parsed = JSON.parse(decoded);
+    return { list: Array.isArray(parsed) ? parsed : [], sha: meta.sha };
+  } catch {
+    return { list: [], sha: meta.sha };
+  }
+}
+
+async function writeList(
+  token: string,
+  list: Confirmation[],
+  sha: string | undefined,
+  message: string,
+): Promise<Response> {
+  const url = `https://api.github.com/repos/${REPO}/contents/${encodeURIComponent(PATH)}`;
+  return fetch(url, {
+    method: "PUT",
+    headers: { ...ghHeaders(token), "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message,
+      content: Buffer.from(JSON.stringify(list, null, 2)).toString("base64"),
+      branch: BRANCH,
+      sha,
+    }),
+  });
+}
+
+function trim(s: unknown, max = 500): string | null {
+  const v = typeof s === "string" ? s.trim() : "";
+  if (!v) return null;
+  return v.slice(0, max);
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Basic CORS — we serve the form from the same origin, but this keeps
+  // preflights sane if the page ever moves to a subdomain.
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).end();
+
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ error: "Method not allowed." });
+  }
+
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    return res.status(503).json({
+      error:
+        "RSVP backend not configured yet. GITHUB_TOKEN missing on the server.",
+    });
+  }
+
+  let body: Record<string, unknown> = {};
+  try {
+    body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  } catch {
+    return res.status(400).json({ error: "Invalid JSON body." });
+  }
+
+  const name = trim(body.name, 200);
+  const emailRaw = trim(body.email, 200);
+  const email = emailRaw ? emailRaw.toLowerCase() : null;
+  const company = trim(body.company, 200);
+  const dietary = trim(body.dietary, 500);
+  const plusOneName = trim(body.plusOneName, 200);
+  const notes = trim(body.notes, 1000);
+
+  if (!name) return res.status(400).json({ error: "Name is required." });
+  if (!email || !EMAIL_RE.test(email))
+    return res.status(400).json({ error: "A valid email is required." });
+
+  const confirmation: Confirmation = {
+    id: nid(),
+    submittedAt: new Date().toISOString(),
+    name,
+    email,
+    company,
+    dietary,
+    plusOneName,
+    notes,
+    userAgent: (req.headers["user-agent"] as string | undefined) ?? null,
+  };
+
+  // Retry the read → write cycle a couple of times to survive concurrent
+  // updates (GitHub returns 409 if the sha we sent no longer matches).
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const { list, sha } = await readList(token);
+      const next = list.filter((c) => c.email !== email); // most-recent-wins per email
+      next.push(confirmation);
+      next.sort((a, b) => a.submittedAt.localeCompare(b.submittedAt));
+      const putRes = await writeList(
+        token,
+        next,
+        sha,
+        `rsvp: ${name} <${email}>`,
+      );
+      if (putRes.ok) return res.status(200).json({ ok: true, id: confirmation.id });
+      if (putRes.status === 409) continue;
+      const text = await putRes.text();
+      return res.status(502).json({
+        error: "Could not write confirmation to the CRM.",
+        detail: text.slice(0, 400),
+      });
+    } catch (err) {
+      if (attempt === 2)
+        return res.status(502).json({
+          error: "Confirmation could not be recorded.",
+          detail: err instanceof Error ? err.message : String(err),
+        });
+    }
+  }
+
+  return res.status(503).json({ error: "Retry limit exceeded — please try again." });
+}
