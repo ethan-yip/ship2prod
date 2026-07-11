@@ -163,7 +163,8 @@ export const Confirm = () => {
               </a>{" "}
               for this confirmation to be honored. If you have not applied and
               been admitted, please do so before submitting — walk-ons cannot
-              board. Use the same email you registered on Luma with.
+              board. Your name can be written however you like, but the email
+              must match the one you used to RSVP on Luma.
             </p>
           </div>
         </div>
@@ -186,7 +187,7 @@ export const Confirm = () => {
                 <TextField
                   value={name}
                   onChange={setName}
-                  placeholder="As it appears on your Luma RSVP"
+                  placeholder="How we should address you"
                   autoComplete="name"
                   maxLength={200}
                   required
@@ -198,7 +199,7 @@ export const Confirm = () => {
                 <TextField
                   value={email}
                   onChange={setEmail}
-                  placeholder="The email tied to your Luma acceptance"
+                  placeholder="The same email tied to your Luma acceptance"
                   type="email"
                   autoComplete="email"
                   maxLength={200}
