@@ -54,39 +54,12 @@ const TextField = ({
   />
 );
 
-const TextArea = ({
-  value,
-  onChange,
-  placeholder,
-  maxLength,
-  rows = 3,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  maxLength?: number;
-  rows?: number;
-}) => (
-  <textarea
-    value={value}
-    onChange={(e) => onChange(e.target.value)}
-    placeholder={placeholder}
-    maxLength={maxLength}
-    rows={rows}
-    className="w-full bg-transparent border-b border-[#1A1A1A]/25 focus:border-[#1A1A1A] outline-none py-3 text-base md:text-lg font-sans font-normal text-[#1A1A1A] placeholder:text-[#AAAAAA] tracking-wide transition-colors duration-300 resize-none"
-  />
-);
-
 type Response = "attending" | "declined";
 
 export const Confirm = () => {
   const [response, setResponse] = useState<Response>("attending");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [dietary, setDietary] = useState("");
-  const [plusOneName, setPlusOneName] = useState("");
-  const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -122,17 +95,7 @@ export const Confirm = () => {
       const r = await fetch("/api/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          response,
-          name,
-          email,
-          // Fields below are dropped by the API when response === "declined",
-          // but sending them anyway keeps the payload shape stable.
-          company: response === "attending" ? company : "",
-          dietary: response === "attending" ? dietary : "",
-          plusOneName: response === "attending" ? plusOneName : "",
-          notes,
-        }),
+        body: JSON.stringify({ response, name, email }),
       });
       const data = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(data.error || "Something went wrong. Please try again.");
@@ -240,58 +203,6 @@ export const Confirm = () => {
                   autoComplete="email"
                   maxLength={200}
                   required
-                />
-              </div>
-
-              {response === "attending" && (
-                <>
-                  <div>
-                    <FieldLabel>Company / Affiliation</FieldLabel>
-                    <TextField
-                      value={company}
-                      onChange={setCompany}
-                      placeholder="Optional"
-                      autoComplete="organization"
-                      maxLength={200}
-                    />
-                  </div>
-
-                  <div>
-                    <FieldLabel>Dietary Restrictions</FieldLabel>
-                    <TextField
-                      value={dietary}
-                      onChange={setDietary}
-                      placeholder="Vegetarian, allergies, etc. — optional"
-                      maxLength={500}
-                    />
-                  </div>
-
-                  <div>
-                    <FieldLabel>Plus-One Name</FieldLabel>
-                    <TextField
-                      value={plusOneName}
-                      onChange={setPlusOneName}
-                      placeholder="Only if a plus-one has been approved — optional"
-                      maxLength={200}
-                    />
-                  </div>
-                </>
-              )}
-
-              <div>
-                <FieldLabel>
-                  {response === "attending" ? "Anything Else" : "A Note"}
-                </FieldLabel>
-                <TextArea
-                  value={notes}
-                  onChange={setNotes}
-                  placeholder={
-                    response === "attending"
-                      ? "Arrival notes, accessibility needs, or a hello — optional"
-                      : "Reason for declining or a farewell — optional"
-                  }
-                  maxLength={1000}
-                  rows={3}
                 />
               </div>
 

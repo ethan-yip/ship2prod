@@ -23,10 +23,6 @@ type Confirmation = {
   response: "attending" | "declined";
   name: string;
   email: string;
-  company: string | null;
-  dietary: string | null;
-  plusOneName: string | null;
-  notes: string | null;
   userAgent: string | null;
 };
 
@@ -122,10 +118,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const name = trim(body.name, 200);
   const emailRaw = trim(body.email, 200);
   const email = emailRaw ? emailRaw.toLowerCase() : null;
-  const company = response === "attending" ? trim(body.company, 200) : null;
-  const dietary = response === "attending" ? trim(body.dietary, 500) : null;
-  const plusOneName = response === "attending" ? trim(body.plusOneName, 200) : null;
-  const notes = trim(body.notes, 1000);
 
   if (!name) return res.status(400).json({ error: "Name is required." });
   if (!email || !EMAIL_RE.test(email))
@@ -137,10 +129,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     response,
     name,
     email,
-    company,
-    dietary,
-    plusOneName,
-    notes,
     userAgent: (req.headers["user-agent"] as string | undefined) ?? null,
   };
 
