@@ -77,7 +77,10 @@ const TextArea = ({
   />
 );
 
+type Response = "attending" | "declined";
+
 export const Confirm = () => {
+  const [response, setResponse] = useState<Response>("attending");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -120,11 +123,14 @@ export const Confirm = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          response,
           name,
           email,
-          company,
-          dietary,
-          plusOneName,
+          // Fields below are dropped by the API when response === "declined",
+          // but sending them anyway keeps the payload shape stable.
+          company: response === "attending" ? company : "",
+          dietary: response === "attending" ? dietary : "",
+          plusOneName: response === "attending" ? plusOneName : "",
           notes,
         }),
       });
@@ -204,9 +210,14 @@ export const Confirm = () => {
       <section className="relative px-6 md:px-12 pt-8 md:pt-10 pb-24 md:pb-40">
         <div className="max-w-2xl mx-auto">
           {done ? (
-            <SuccessState name={name} />
+            <SuccessState name={name} response={response} />
           ) : (
             <form onSubmit={handleSubmit} className="space-y-10 md:space-y-12">
+              <div>
+                <FieldLabel required>Your Response</FieldLabel>
+                <ResponseToggle value={response} onChange={setResponse} />
+              </div>
+
               <div>
                 <FieldLabel required>Full Name</FieldLabel>
                 <TextField
@@ -232,43 +243,53 @@ export const Confirm = () => {
                 />
               </div>
 
-              <div>
-                <FieldLabel>Company / Affiliation</FieldLabel>
-                <TextField
-                  value={company}
-                  onChange={setCompany}
-                  placeholder="Optional"
-                  autoComplete="organization"
-                  maxLength={200}
-                />
-              </div>
+              {response === "attending" && (
+                <>
+                  <div>
+                    <FieldLabel>Company / Affiliation</FieldLabel>
+                    <TextField
+                      value={company}
+                      onChange={setCompany}
+                      placeholder="Optional"
+                      autoComplete="organization"
+                      maxLength={200}
+                    />
+                  </div>
+
+                  <div>
+                    <FieldLabel>Dietary Restrictions</FieldLabel>
+                    <TextField
+                      value={dietary}
+                      onChange={setDietary}
+                      placeholder="Vegetarian, allergies, etc. — optional"
+                      maxLength={500}
+                    />
+                  </div>
+
+                  <div>
+                    <FieldLabel>Plus-One Name</FieldLabel>
+                    <TextField
+                      value={plusOneName}
+                      onChange={setPlusOneName}
+                      placeholder="Only if a plus-one has been approved — optional"
+                      maxLength={200}
+                    />
+                  </div>
+                </>
+              )}
 
               <div>
-                <FieldLabel>Dietary Restrictions</FieldLabel>
-                <TextField
-                  value={dietary}
-                  onChange={setDietary}
-                  placeholder="Vegetarian, allergies, etc. — optional"
-                  maxLength={500}
-                />
-              </div>
-
-              <div>
-                <FieldLabel>Plus-One Name</FieldLabel>
-                <TextField
-                  value={plusOneName}
-                  onChange={setPlusOneName}
-                  placeholder="Only if a plus-one has been approved — optional"
-                  maxLength={200}
-                />
-              </div>
-
-              <div>
-                <FieldLabel>Anything Else</FieldLabel>
+                <FieldLabel>
+                  {response === "attending" ? "Anything Else" : "A Note"}
+                </FieldLabel>
                 <TextArea
                   value={notes}
                   onChange={setNotes}
-                  placeholder="Arrival notes, accessibility needs, or a hello — optional"
+                  placeholder={
+                    response === "attending"
+                      ? "Arrival notes, accessibility needs, or a hello — optional"
+                      : "Reason for declining or a farewell — optional"
+                  }
                   maxLength={1000}
                   rows={3}
                 />
@@ -286,7 +307,11 @@ export const Confirm = () => {
                   disabled={submitting}
                   className="group inline-block px-14 md:px-16 py-5 border border-[#1A1A1A] text-[11px] md:text-xs font-sans tracking-[0.5em] uppercase font-medium text-[#1A1A1A] transition-colors duration-500 hover:bg-[#1A1A1A] hover:text-[#FDFDFD] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Recording…" : "Confirm Attendance"}
+                  {submitting
+                    ? "Recording…"
+                    : response === "attending"
+                      ? "Confirm Attendance"
+                      : "Send Regrets"}
                 </button>
                 <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#888888]">
                   We reply within 48 hours if anything is amiss.
@@ -316,27 +341,64 @@ export const Confirm = () => {
   );
 };
 
-function SuccessState({ name }: { name: string }) {
+function ResponseToggle({
+  value,
+  onChange,
+}: {
+  value: Response;
+  onChange: (v: Response) => void;
+}) {
+  const options: { value: Response; label: string }[] = [
+    { value: "attending", label: "I'll Be There" },
+    { value: "declined", label: "I Can't Make It" },
+  ];
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+      {options.map((opt) => {
+        const active = value === opt.value;
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onChange(opt.value)}
+            aria-pressed={active}
+            className={
+              "px-6 py-5 border text-[11px] md:text-xs font-sans tracking-[0.35em] uppercase font-medium transition-colors duration-300 " +
+              (active
+                ? "border-[#1A1A1A] bg-[#1A1A1A] text-[#FDFDFD]"
+                : "border-[#1A1A1A]/25 text-[#555555] hover:border-[#1A1A1A] hover:text-[#1A1A1A]")
+            }
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function SuccessState({ name, response }: { name: string; response: Response }) {
   const firstName = name.split(/\s+/)[0] || "You";
+  const declined = response === "declined";
   return (
     <div className="text-center py-12 md:py-16">
       <p className="text-[10px] md:text-xs font-sans tracking-[0.6em] uppercase text-[#5A4028] font-medium mb-6">
-        Recorded
+        {declined ? "Regrets Noted" : "Recorded"}
       </p>
       <h2 className="text-3xl md:text-5xl font-serif font-light tracking-[0.06em] leading-[1.15] mb-8">
-        Aboard, {firstName}.
+        {declined ? `Until next time, ${firstName}.` : `Aboard, ${firstName}.`}
       </h2>
       <p className="text-base md:text-lg font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide max-w-lg mx-auto">
-        Your confirmation is in. We'll be in touch with final boarding details
-        as the sail date approaches. Please arrive at Pier 40 no later than
-        6:45 PM — the vessel departs promptly at seven.
+        {declined
+          ? "Thank you for letting us know. Your seat will be released so another builder can join. We hope to see you at the next sail."
+          : "Your confirmation is in. We'll be in touch with final boarding details as the sail date approaches. Please arrive at Pier 40 no later than 6:45 PM — the vessel departs promptly at seven."}
       </p>
       <div className="mt-12">
         <a
-          href="/event-details"
+          href={declined ? "/" : "/event-details"}
           className="group inline-block px-14 md:px-16 py-5 border border-[#1A1A1A] text-[11px] md:text-xs font-sans tracking-[0.5em] uppercase font-medium text-[#1A1A1A] transition-colors duration-500 hover:bg-[#1A1A1A] hover:text-[#FDFDFD]"
         >
-          Event Details
+          {declined ? "Return to Ship 2 Prod" : "Event Details"}
         </a>
       </div>
     </div>

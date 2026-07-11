@@ -20,6 +20,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Confirmation = {
   id: string;
   submittedAt: string;
+  response: "attending" | "declined";
   name: string;
   email: string;
   company: string | null;
@@ -115,12 +116,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: "Invalid JSON body." });
   }
 
+  const responseRaw = typeof body.response === "string" ? body.response : "attending";
+  const response: "attending" | "declined" =
+    responseRaw === "declined" ? "declined" : "attending";
   const name = trim(body.name, 200);
   const emailRaw = trim(body.email, 200);
   const email = emailRaw ? emailRaw.toLowerCase() : null;
-  const company = trim(body.company, 200);
-  const dietary = trim(body.dietary, 500);
-  const plusOneName = trim(body.plusOneName, 200);
+  const company = response === "attending" ? trim(body.company, 200) : null;
+  const dietary = response === "attending" ? trim(body.dietary, 500) : null;
+  const plusOneName = response === "attending" ? trim(body.plusOneName, 200) : null;
   const notes = trim(body.notes, 1000);
 
   if (!name) return res.status(400).json({ error: "Name is required." });
@@ -130,6 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const confirmation: Confirmation = {
     id: nid(),
     submittedAt: new Date().toISOString(),
+    response,
     name,
     email,
     company,
@@ -147,11 +152,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const next = list.filter((c) => c.email !== email); // most-recent-wins per email
       next.push(confirmation);
       next.sort((a, b) => a.submittedAt.localeCompare(b.submittedAt));
+      const verb = response === "declined" ? "regrets" : "rsvp";
       const putRes = await writeList(
         token,
         next,
         sha,
-        `rsvp: ${name} <${email}>`,
+        `${verb}: ${name} <${email}>`,
       );
       if (putRes.ok) return res.status(200).json({ ok: true, id: confirmation.id });
       if (putRes.status === 409) continue;
