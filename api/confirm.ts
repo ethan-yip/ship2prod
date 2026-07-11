@@ -14,6 +14,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const REPO = process.env.CONFIRMATIONS_REPO || "The-Resonance-Lab/S2P-CRM";
 const PATH = process.env.CONFIRMATIONS_PATH || "data/confirmations.json";
+const ADMITTED_PATH = process.env.ADMITTED_EMAILS_PATH || "data/admitted-emails.json";
 const BRANCH = process.env.CONFIRMATIONS_BRANCH || "main";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -55,6 +56,24 @@ async function readList(token: string): Promise<{ list: Confirmation[]; sha?: st
     return { list: Array.isArray(parsed) ? parsed : [], sha: meta.sha };
   } catch {
     return { list: [], sha: meta.sha };
+  }
+}
+
+// Returns null if the admitted-emails file is missing or unreadable — we treat
+// that as "can't verify" rather than "not admitted" so a stale/misconfigured
+// state never blocks a real guest from getting a success response.
+async function readAdmittedEmails(token: string): Promise<Set<string> | null> {
+  try {
+    const url = `https://api.github.com/repos/${REPO}/contents/${encodeURIComponent(ADMITTED_PATH)}?ref=${encodeURIComponent(BRANCH)}`;
+    const r = await fetch(url, { headers: ghHeaders(token) });
+    if (!r.ok) return null;
+    const meta = (await r.json()) as { content: string; encoding?: string };
+    const decoded = Buffer.from(meta.content, "base64").toString("utf8");
+    const parsed = JSON.parse(decoded);
+    if (!Array.isArray(parsed)) return null;
+    return new Set(parsed.map((s: string) => String(s).toLowerCase()));
+  } catch {
+    return null;
   }
 }
 
@@ -132,6 +151,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     userAgent: (req.headers["user-agent"] as string | undefined) ?? null,
   };
 
+  // Fetched in parallel with the first read; used to tell the client
+  // whether their email actually matches a Luma-admitted address, so a
+  // typo doesn't silently orphan the row.
+  const admittedPromise = readAdmittedEmails(token);
+
   // Retry the read → write cycle a couple of times to survive concurrent
   // updates (GitHub returns 409 if the sha we sent no longer matches).
   for (let attempt = 0; attempt < 3; attempt++) {
@@ -147,7 +171,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         sha,
         `${verb}: ${name} <${email}>`,
       );
-      if (putRes.ok) return res.status(200).json({ ok: true, id: confirmation.id });
+      if (putRes.ok) {
+        const admitted = await admittedPromise;
+        // null → verifier unavailable; treat as "unknown" (not a hard fail)
+        const onLumaList = admitted ? admitted.has(email) : null;
+        return res.status(200).json({
+          ok: true,
+          id: confirmation.id,
+          onLumaList,
+        });
+      }
       if (putRes.status === 409) continue;
       const text = await putRes.text();
       return res.status(502).json({

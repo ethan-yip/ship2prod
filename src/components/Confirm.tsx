@@ -63,6 +63,9 @@ export const Confirm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // null = server couldn't verify; true = matched a Luma-admitted address;
+  // false = not on the list (likely a typo).
+  const [onLumaList, setOnLumaList] = useState<boolean | null>(null);
 
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -99,10 +102,15 @@ export const Confirm = () => {
       });
       const data = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(data.error || "Something went wrong. Please try again.");
+      setOnLumaList(typeof data.onLumaList === "boolean" ? data.onLumaList : null);
       setDone(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "We couldn't reach the server. Please check your connection and try again — or email ethan@rsnc.ai.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -174,7 +182,12 @@ export const Confirm = () => {
       <section className="relative px-6 md:px-12 pt-8 md:pt-10 pb-24 md:pb-40">
         <div className="max-w-2xl mx-auto">
           {done ? (
-            <SuccessState name={name} response={response} />
+            <SuccessState
+              name={name}
+              email={email}
+              response={response}
+              onLumaList={onLumaList}
+            />
           ) : (
             <form onSubmit={handleSubmit} className="space-y-10 md:space-y-12">
               <div>
@@ -208,9 +221,27 @@ export const Confirm = () => {
               </div>
 
               {error && (
-                <p className="text-sm font-sans text-[#8A2A2A] tracking-wide leading-relaxed">
-                  {error}
-                </p>
+                <div
+                  role="alert"
+                  className="border border-[#8A2A2A]/40 bg-[#FBEDED] px-6 md:px-8 py-5"
+                >
+                  <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#8A2A2A] font-medium mb-2">
+                    Not Recorded
+                  </p>
+                  <p className="text-sm md:text-base font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide">
+                    {error}
+                    {" "}
+                    If this keeps happening, email{" "}
+                    <a
+                      href={`mailto:ethan@rsnc.ai?subject=Yacht%20Gala%20RSVP%20failed%20for%20${encodeURIComponent(name || "guest")}`}
+                      className="text-[#1A1A1A] underline underline-offset-4 hover:text-[#9C7A2C] transition-colors"
+                    >
+                      ethan@rsnc.ai
+                    </a>
+                    {" "}
+                    and we'll add you by hand.
+                  </p>
+                </div>
               )}
 
               <div className="pt-4 flex flex-col items-center gap-6">
@@ -289,7 +320,17 @@ function ResponseToggle({
   );
 }
 
-function SuccessState({ name, response }: { name: string; response: Response }) {
+function SuccessState({
+  name,
+  email,
+  response,
+  onLumaList,
+}: {
+  name: string;
+  email: string;
+  response: Response;
+  onLumaList: boolean | null;
+}) {
   const firstName = name.split(/\s+/)[0] || "You";
   const declined = response === "declined";
   return (
@@ -305,6 +346,39 @@ function SuccessState({ name, response }: { name: string; response: Response }) 
           ? "Thank you for letting us know. Your seat will be released so another builder can join. We hope to see you at the next sail."
           : "Your confirmation is in. We'll be in touch with final boarding details as the sail date approaches. Please arrive at Pier 40 no later than 6:45 PM — the vessel departs promptly at seven."}
       </p>
+
+      {onLumaList === false && (
+        <div
+          role="alert"
+          className="max-w-lg mx-auto mt-12 border border-[#9C7A2C]/40 bg-[#FBF4E4] px-6 md:px-8 py-5 text-left"
+        >
+          <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#7A5A1A] font-medium mb-2">
+            Email Not on Luma List
+          </p>
+          <p className="text-sm md:text-base font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide">
+            We recorded your response, but the address{" "}
+            <span className="font-mono text-[#1A1A1A]">{email}</span>{" "}
+            doesn't match anyone we admitted on Luma. Please double-check that
+            you used the exact same email as your Luma acceptance —{" "}
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="underline underline-offset-4 text-[#1A1A1A] hover:text-[#9C7A2C] transition-colors bg-transparent border-0 p-0 font-inherit cursor-pointer"
+            >
+              re-submit here
+            </button>{" "}
+            with the correct one, or email{" "}
+            <a
+              href={`mailto:ethan@rsnc.ai?subject=Yacht%20Gala%20RSVP%20email%20mismatch%20—%20${encodeURIComponent(name || "guest")}`}
+              className="underline underline-offset-4 text-[#1A1A1A] hover:text-[#9C7A2C] transition-colors"
+            >
+              ethan@rsnc.ai
+            </a>{" "}
+            for help.
+          </p>
+        </div>
+      )}
+
       <div className="mt-12">
         <a
           href={declined ? "/" : "/event-details"}
