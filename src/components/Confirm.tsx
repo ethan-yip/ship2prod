@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { Marquee } from "./Marquee";
 
@@ -104,7 +104,8 @@ export const Confirm = () => {
       if (!r.ok) throw new Error(data.error || "Something went wrong. Please try again.");
       setOnLumaList(typeof data.onLumaList === "boolean" ? data.onLumaList : null);
       setDone(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Scroll handled by the SuccessState effect below so the recorded
+      // message lands in the viewport rather than bouncing to the top.
     } catch (err) {
       setError(
         err instanceof Error
@@ -223,18 +224,18 @@ export const Confirm = () => {
               {error && (
                 <div
                   role="alert"
-                  className="border border-[#8A2A2A]/40 bg-[#FBEDED] px-6 md:px-8 py-5"
+                  className="border-2 border-[#B01B1B] bg-[#F8D4D4] px-6 md:px-8 py-5"
                 >
-                  <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#8A2A2A] font-medium mb-2">
+                  <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#B01B1B] font-semibold mb-2">
                     Not Recorded
                   </p>
-                  <p className="text-sm md:text-base font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide">
+                  <p className="text-sm md:text-base font-sans font-normal text-[#4A0F0F] leading-relaxed tracking-wide">
                     {error}
                     {" "}
                     If this keeps happening, email{" "}
                     <a
                       href={`mailto:ethan@rsnc.ai?subject=Yacht%20Gala%20RSVP%20failed%20for%20${encodeURIComponent(name || "guest")}`}
-                      className="text-[#1A1A1A] underline underline-offset-4 hover:text-[#9C7A2C] transition-colors"
+                      className="text-[#B01B1B] underline underline-offset-4 hover:text-[#7A0F0F] transition-colors font-medium"
                     >
                       ethan@rsnc.ai
                     </a>
@@ -333,8 +334,18 @@ function SuccessState({
 }) {
   const firstName = name.split(/\s+/)[0] || "You";
   const declined = response === "declined";
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  // On mount (i.e. right after submission) center the "Recorded" heading
+  // in the viewport instead of jumping to the top of the page.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
+
   return (
-    <div className="text-center py-12 md:py-16">
+    <div ref={rootRef} className="text-center py-12 md:py-16">
       <p className="text-[10px] md:text-xs font-sans tracking-[0.6em] uppercase text-[#5A4028] font-medium mb-6">
         {declined ? "Regrets Noted" : "Recorded"}
       </p>
@@ -350,12 +361,12 @@ function SuccessState({
       {onLumaList === false && (
         <div
           role="alert"
-          className="max-w-lg mx-auto mt-12 border border-[#9C7A2C]/40 bg-[#FBF4E4] px-6 md:px-8 py-5 text-left"
+          className="max-w-lg mx-auto mt-12 border-2 border-[#B01B1B] bg-[#F8D4D4] px-6 md:px-8 py-5 text-left"
         >
-          <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#7A5A1A] font-medium mb-2">
+          <p className="text-[10px] md:text-[11px] font-sans tracking-[0.35em] uppercase text-[#B01B1B] font-semibold mb-2">
             Email Not on Luma List
           </p>
-          <p className="text-sm md:text-base font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide">
+          <p className="text-sm md:text-base font-sans font-normal text-[#4A0F0F] leading-relaxed tracking-wide">
             We recorded your response, but the address{" "}
             <span className="font-mono text-[#1A1A1A]">{email}</span>{" "}
             doesn't match anyone we admitted on Luma. Please double-check that
@@ -363,14 +374,14 @@ function SuccessState({
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="underline underline-offset-4 text-[#1A1A1A] hover:text-[#9C7A2C] transition-colors bg-transparent border-0 p-0 font-inherit cursor-pointer"
+              className="underline underline-offset-4 text-[#B01B1B] hover:text-[#7A0F0F] transition-colors font-medium bg-transparent border-0 p-0 font-inherit cursor-pointer"
             >
               re-submit here
             </button>{" "}
             with the correct one, or email{" "}
             <a
               href={`mailto:ethan@rsnc.ai?subject=Yacht%20Gala%20RSVP%20email%20mismatch%20—%20${encodeURIComponent(name || "guest")}`}
-              className="underline underline-offset-4 text-[#1A1A1A] hover:text-[#9C7A2C] transition-colors"
+              className="underline underline-offset-4 text-[#B01B1B] hover:text-[#7A0F0F] transition-colors font-medium"
             >
               ethan@rsnc.ai
             </a>{" "}
