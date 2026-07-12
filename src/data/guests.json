@@ -616,7 +616,7 @@
     "id": "cmr6jixwi00waugbxv44hx5m6",
     "name": "Justin Yu",
     "photoUrl": null,
-    "company": "SNU ICL, Stanford Hopkins Marine Center",
+    "company": "Stanford University",
     "title": null,
     "headline": null,
     "bio": "I'm just a chill guy and I bring some good vibes. I will take nasty flicks/vids on the yacht. Don't believe me? Hit up @justinyuflicks on insta.",
@@ -624,7 +624,7 @@
     "githubUrl": null,
     "twitterUrl": null,
     "websiteUrl": null,
-    "context": "Youngest SNU ICL intern (diffusion + 3D recon), Stanford Hopkins Marine",
+    "context": "EECS at Stanford",
     "flags": [
       "founder"
     ]
@@ -2265,7 +2265,7 @@
     "id": "cmr6jixy500wsugbx1v1kwrrf",
     "name": "Benjamin Chan",
     "photoUrl": null,
-    "company": "Xyla Engineering - Co-Founder & Chief Engineer",
+    "company": "Xyla Engineering",
     "title": null,
     "headline": null,
     "bio": "I’m 18 and a Carnegie Mellon University dropout. I am the youngest person to ever code for Google (recruited at 16) and I built $40M+ worth of startups before 18. Currently, I’m the Co-founder of Xyla Engineering ($2.5M at a $25M valuation), AI researcher at Elemental AI Labs (empirical eval and mechanistic interprability), Founder/CEO at Aperture AI Labs, and venture partner at Foundry + 996 Ventures. Previously, 2-time startup exits ($15M AI-Native LMS + $3.3M Defense Software sold to Boeing), main lead of $7M SBIR defense contracts at Haylon Tech, and AI/ML research engineer for Google, Boeing, Lockheed Martin, and Northrop Grumman.\n\nI bring an unparalleled defense network and young founder experience/connections. I am looking and will be using the event to invest in promising founders, meet promising investors, and collaborate with fellow AI researchers on future projects.",
@@ -2273,10 +2273,8 @@
     "githubUrl": null,
     "twitterUrl": null,
     "websiteUrl": null,
-    "context": null,
-    "flags": [
-      "founder"
-    ]
+    "context": "Xyla Engineering (raising preseed, $1.1M committed); 2 prior exits as founding team; ex-Google (recruited at 16), Boeing, Northrop; incoming CMU CS+Stats",
+    "flags": []
   },
   {
     "id": "cmra42obn00pjfdsjljjw7o70",
