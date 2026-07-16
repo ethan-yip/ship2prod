@@ -126,6 +126,62 @@
     ]
   },
   {
+    "id": "cmre5uou00050tee5y40ej4ti",
+    "name": "Stephanie Wan",
+    "photoUrl": null,
+    "company": "Two Sigma / Ramp",
+    "title": null,
+    "headline": null,
+    "bio": "this seems like a cool event! i have a fun mix of five traits that seem pretty valuable:\nagency (seeing new paths): i was the only freshman // springtern at ramp labs bc i made a role that didnt exist before\ncompetence (making stuff happen):  ran lit 2000 person 73 country cybersec competition in high school, ran yhack 600+ people\ntechnical skill: two sigma quant, primes research\ntaste: both artistic (ive won a few national art competitions) and technical (developed a lot @ ramp labs)\ncontext: quant / ea / ai safety / startups",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Yale CS/Math, Two Sigma quant, Ramp Labs springtern, PRIMES, YHack organizer, IPHO/Tri Dao-lab founder circle",
+    "flags": [
+      "founder"
+    ]
+  },
+  {
+    "id": "cmr6jixq100ujugbx1bihgfg0",
+    "name": "Tanuj Siripurapu",
+    "photoUrl": null,
+    "company": "Edviro",
+    "title": null,
+    "headline": null,
+    "bio": "YC (S26) at age of 19, programming since 9, prev. @ RTX, scaled agency to 25k arr in high school",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Edviro (YC S26 + Reach Capital-backed) intelligent building mgmt founder at 19, ex-RTX, $25k ARR agency in HS",
+    "flags": [
+      "founder",
+      "vc-backed",
+      "yc",
+      "traction"
+    ]
+  },
+  {
+    "id": "cmr6jj0qq01q5ugbx8ft9oi4t",
+    "name": "Aditya Mittal",
+    "photoUrl": null,
+    "company": "Rote (YC-backed)",
+    "title": null,
+    "headline": null,
+    "bio": "I'm a builder and operator drawn to pointing AI at big, messy, real-world industries.\n\nI've built AI at Apple and worked at Toyota — so I've seen how technology actually ships inside two of the most demanding companies in the world.\n\nI'm also deep in the founder world. As President of Cornell Entrepreneurship, I run a speaker series that's hosted people like Scott Belsky (Adobe), Reggie Fils-Aimé (Nintendo), and founders and VCs from 1517 and Infisical. I bring a real network of builders, operators, and investors — and I love making the intros that help people. Along the way, I've won 4 hackathons, including Big Red Hacks, Cornell's flagship.\n\nToday I'm a YC-backed founder building Rote — an AI agent that handles insurance claims regardless of carrier.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Rote (YC W27), ex-Apple/Toyota AI, Cornell Entrepreneurship president",
+    "flags": [
+      "vc-backed",
+      "yc",
+      "founder"
+    ]
+  },
+  {
     "id": "cmr6jj14a01u8ugbx52rrgefy",
     "name": "Dylan Nguyen",
     "photoUrl": null,
@@ -903,6 +959,21 @@
     ]
   },
   {
+    "id": "cmri6pejm009zfgq4c5sf63ch",
+    "name": "Khush Lalchandani",
+    "photoUrl": null,
+    "company": "Amazon — Software Development Engineer Intern, working on implementing Graph RAG for supply chain optimization. - Research Assistant",
+    "title": null,
+    "headline": null,
+    "bio": "I am a driven rising sophomore at Stanford with a strong interest in building at the intersection of AI, robotics, and entrepreneurship. I am currently working at Amazon on Graph RAG and advanced AI systems, and I already have an offer to intern at Optiver next summer. Alongside industry experience, I am involved in research at Stanford and have worked across computer vision, robotics, and medical applications.\n\nI am ver interested in turning this work into meaningful products and companies. At Stanford I am organizing a drone hackathon through one of my clubs and I have developed relationships with founders, startups, engineers, and venture capitalists with over $150,000 in funding for this event. \n\nI would bring technical depth, ambition, curiosity, and a strong connection to Stanford’s research and startup ecosystem.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
+  },
+  {
     "id": "cmr6jiwei00gtugbxd1j3282h",
     "name": "Manish Kota",
     "photoUrl": null,
@@ -1551,6 +1622,24 @@
     "flags": []
   },
   {
+    "id": "cmra42oht00rmfdsjli3z00fn",
+    "name": "Grace Ling",
+    "photoUrl": null,
+    "company": "Design Buddies and formerly Electronic Arts, designer on the Sims - Designer and creator (300K+ total followers)",
+    "title": null,
+    "headline": null,
+    "bio": "i'm also a tech bro and love making contents and got 100 million views in the last year from a tech audience yay",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Design Buddies founder ($1M ARR bootstrapped), ex-EA Sims designer, 300K followers",
+    "flags": [
+      "founder",
+      "traction"
+    ]
+  },
+  {
     "id": "cmr6jj26g0266ugbxx4ftayoz",
     "name": "Heidi",
     "photoUrl": null,
@@ -1578,6 +1667,21 @@
     "twitterUrl": null,
     "websiteUrl": null,
     "context": null,
+    "flags": []
+  },
+  {
+    "id": "cmrekhprr007v107prlhqoe0j",
+    "name": "Rayed Chowdhury",
+    "photoUrl": null,
+    "company": "Maximor AI",
+    "title": null,
+    "headline": null,
+    "bio": "I'm nice wit it",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Verified founding eng Maximor AI (Foundation Cap $9M seed); MIT Sandbox, 20x hackathon",
     "flags": []
   },
   {
@@ -1753,6 +1857,25 @@
     ]
   },
   {
+    "id": "cmrekhpxp009p107pnosonswb",
+    "name": "Shubh Jain",
+    "photoUrl": null,
+    "company": "Kairos",
+    "title": null,
+    "headline": null,
+    "bio": "At 16, I spent a month away from my family traveling across villages in India to distribute my nonprofit legal-tech app, helping villagers fight against a corrupt and unfair legal system. When I believe in a mission, there is little I will not do to see it through. I belong in this curated group because I want to be surrounded by like-minded individuals who are equally driven to create meaningful change.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Verified Stanford CS+EE, building Kairos (predictive AI), ex-Friday YC F24; Jacob Lee referral",
+    "flags": [
+      "founder",
+      "vc-backed",
+      "yc"
+    ]
+  },
+  {
     "id": "cmr6jiwjw00iiugbxw8zc6ga3",
     "name": "harris dalal",
     "photoUrl": null,
@@ -1765,6 +1888,23 @@
     "twitterUrl": null,
     "websiteUrl": null,
     "context": "veriqa.ai cofounder/CEO (AI agents in pharma manufacturing, bootstrap)",
+    "flags": [
+      "founder"
+    ]
+  },
+  {
+    "id": "cmr6jiypc014augbxpdrviwi3",
+    "name": "Josh Nangia",
+    "photoUrl": null,
+    "company": "My own - numerous",
+    "title": null,
+    "headline": null,
+    "bio": "I did 1 million in profit before 16, ive hosted my own yacht events in the past, and ima social butterfly.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "$1M profit before 16, multi-brand founder (Eighth Day Club, Omen Studios, Lever Media, Clarity)",
     "flags": [
       "founder"
     ]
@@ -1840,6 +1980,21 @@
       "founder",
       "investor"
     ]
+  },
+  {
+    "id": "cmri6pfwb00nofgq4l6y7vow6",
+    "name": "Valerie Eng",
+    "photoUrl": null,
+    "company": "Databricks",
+    "title": null,
+    "headline": null,
+    "bio": "I spend 10x more time on projects versus classes at Berkeley; I’m on the executive team for 4 major builder clubs (delivered paid contract projects for partners like Google, Apple R&D, and Meta Superintelligence Labs). I love being surrounded by people that force me to move fast. I won 1st in my track at CalHacks 12.0 by making a geospatial social platform, and won Square/Block’s company-wide hackathon, which let me present directly to Jack Dorsey (which THEN led to the Head of Product to reach out for plans to #shiptoprod). What I’ve learned from my leadership in ambitious communities and interning at high-growth companies, I need to work with passionate people. Super excited to immerse myself in this incredible group of strangers and form genuine, lasting relationships.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
   },
   {
     "id": "cmr6jj0hp01nlugbxlb5zgp4c",
@@ -2009,19 +2164,21 @@
     "flags": []
   },
   {
-    "id": "cmr6jiy1l00xrugbx76kwxx22",
-    "name": "Abhi Guntaka",
+    "id": "cmra42ojo00s9fdsjejy2xije",
+    "name": "Jenny Ruan",
     "photoUrl": null,
-    "company": "Arceus",
+    "company": "YBuffet, Inc. - Founder",
     "title": null,
     "headline": null,
-    "bio": "We make legal move at startup speeds. Also I run a community of Series A+ founders so looking for people who want in.",
+    "bio": "Founder by day, standup comedian by night. I live at the intersection of tech and art, building apprentice agents to preserve human expertise.",
     "location": null,
     "githubUrl": null,
     "twitterUrl": null,
     "websiteUrl": null,
-    "context": "LinkedIn tag reads 'Econ+DS @ UCLA'",
-    "flags": []
+    "context": "YBuffet Inc founder building apprentice agents, in talks with VCs",
+    "flags": [
+      "founder"
+    ]
   },
   {
     "id": "cmr6jj24w025mugbxffbwr0l9",
@@ -2038,6 +2195,24 @@
     "context": null,
     "flags": [
       "founder"
+    ]
+  },
+  {
+    "id": "cmra42ot800v9fdsj9d7maj00",
+    "name": "Katie Chen",
+    "photoUrl": null,
+    "company": "Ocelot Media, ex-Pond (SERIESA), ex-Cluely (SERIESA) - Founder, Ex Head of Marketing",
+    "title": null,
+    "headline": null,
+    "bio": "Im katie let me in guys 😭 bro",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Ocelot Media founder, ex-Pond and Cluely (both Series A) head of marketing",
+    "flags": [
+      "founder",
+      "vc-backed"
     ]
   },
   {
@@ -2075,6 +2250,21 @@
     "flags": [
       "competition"
     ]
+  },
+  {
+    "id": "cmre5upry00gftee5gxfqjljp",
+    "name": "Sohini Das",
+    "photoUrl": null,
+    "company": "LinkedIn",
+    "title": null,
+    "headline": null,
+    "bio": "I've realized that the most meaningful opportunities in my career have happened at the intersection of building technology and building people.\n\nI've been fortunate to learn in very different environments, from Google and Deloitte to LinkedIn, where I've seen how products evolve from ideas into systems used at massive scale. Each experience has given me a different lens, whether it's engineering, product thinking, or understanding how technology creates value for people.\n\nAt the same time, some of the work I'm proudest of hasn't been tied to an internship. I founded WiCS Inspire because I wanted to create the kind of community I wish I'd had earlier in my journey. Bringing students together, mentoring peers, and creating opportunities for others has taught me that innovation doesn't happen in isolation. The strongest ideas come from people who challenge and inspire each other.\n\nThat mindset is what draws me to the AI startup ecosystem. I love being around people who are love  solving difficult problems, asking better questions, and shipping products that matter. My own interests are centered on AI for healthcare, but I'm just as excited by conversations about infrastructure, developer tools, and the systems that make great products possible.\n\nI'd contribute to this community because I naturally bridge technical discussions with genuine relationship building. I enjoy connecting people, exchanging ideas across disciplines, and learning from builders whose experiences are completely different from my own. Those conversations have shaped my journey so far, and I hope to contribute the same energy to this room.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "LinkedIn eng, ex-Google/Deloitte, ref by Rameez Malik",
+    "flags": []
   },
   {
     "id": "cmra42o5d00ncfdsjplx9kpfq",
@@ -2194,6 +2384,21 @@
     ]
   },
   {
+    "id": "cmri6pdu1002ufgq4d1st78yd",
+    "name": "achraf zemzami",
+    "photoUrl": null,
+    "company": "Acaysia",
+    "title": null,
+    "headline": null,
+    "bio": "network with founders, help upcoming founders in raising, exploring vc, and the startup industry.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
+  },
+  {
     "id": "cmra42o5w00nifdsjbwt2lr6n",
     "name": "Donna Lee",
     "photoUrl": null,
@@ -2209,6 +2414,21 @@
     "flags": [
       "vc-backed"
     ]
+  },
+  {
+    "id": "cmrn1dx44004iiitgsz7t9a87",
+    "name": "Harsh Bamalwa",
+    "photoUrl": null,
+    "company": "Research at BAIR Labs, Intern at Realization Technologies",
+    "title": null,
+    "headline": null,
+    "bio": "I'm a math and philosophy major, and I think that combination is exactly what an industry this STEM-heavy is short on. The hard problems in AI right now aren't technical as much as they are about meaning, ambiguity, judgment, what we actually want these systems to do. I think a yacht full of brilliant engineers benefit from someone who can move between the formal and the conceptual.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "BAIR Labs ML research (interpretability + reasoning in VLMs, humor); UPenn math + philosophy",
+    "flags": []
   },
   {
     "id": "cmr6jivtf00b4ugbxta6dk5qq",
@@ -2276,6 +2496,43 @@
     "context": "Incoming Stanford freshman, stealth founder, ESU Public Speaking Champion, Harvard Growth Lab RA.",
     "flags": [
       "founder"
+    ]
+  },
+  {
+    "id": "cmrn1dzgw00wgiitgcpfj18ph",
+    "name": "Aruesha Srivastava",
+    "photoUrl": null,
+    "company": "SynTest Labs",
+    "title": null,
+    "headline": null,
+    "bio": "VC backed founder; Caltech EE; 6+ first-author publications. LinkedIn: https://www.linkedin.com/in/aruesha-srivastava/",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "SynTest Labs cofounder/CEO (VC-backed molecular screening for oral cancer); diagnostics researcher at Caltech, Stanford, Cedars-Sinai, Dartmouth; 6+ first-author papers; Caltech EE",
+    "flags": [
+      "founder",
+      "investor",
+      "research"
+    ]
+  },
+  {
+    "id": "cmrn1dxra00bviitg4putiwql",
+    "name": "Ryan Junejo",
+    "photoUrl": null,
+    "company": "Lunchbox",
+    "title": null,
+    "headline": null,
+    "bio": "2nd time AI SUS attendee and friends with Yuqi",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Lunchbox (stealth) founder; backed by Comma Capital, DCG, angels; 2nd-time AI SUS attendee",
+    "flags": [
+      "founder",
+      "vc-backed"
     ]
   },
   {
@@ -2381,6 +2638,55 @@
     ]
   },
   {
+    "id": "cmri6petx00cufgq4y4po509x",
+    "name": "Sammy krem",
+    "photoUrl": null,
+    "company": "Waymo",
+    "title": null,
+    "headline": null,
+    "bio": "MIT AeroAstro and CS. Currently at Waymo. Ex CFAANG.",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
+  },
+  {
+    "id": "cmri6peis009pfgq4tvdkpyyf",
+    "name": "Vincent Qi",
+    "photoUrl": null,
+    "company": "OpenAI - Member of Technical Staff Intern",
+    "title": null,
+    "headline": null,
+    "bio": "working on mech interp",
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": [
+      "big-ai-lab"
+    ]
+  },
+  {
+    "id": "cmrn1dz3f00s2iitg5cl2mffa",
+    "name": "Nick Shaw",
+    "photoUrl": null,
+    "company": "Arceus - Founding Member",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Arceus founding member (VC-backed legal AI)",
+    "flags": [
+      "investor"
+    ]
+  },
+  {
     "id": "cmri6penn00b2fgq4jky0nszc",
     "name": "Christopher Tang",
     "photoUrl": null,
@@ -2414,5 +2720,20 @@
       "founder",
       "big-ai-lab"
     ]
+  },
+  {
+    "id": "cmri6pf8l00gyfgq446u3yvm3",
+    "name": "Alina Chen",
+    "photoUrl": null,
+    "company": "Exa",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
   }
 ]
