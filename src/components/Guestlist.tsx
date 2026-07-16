@@ -176,7 +176,7 @@ export const Guestlist = () => {
             Guest List
           </h1>
           <p className="text-[11px] md:text-xs font-sans font-light tracking-[0.25em] uppercase text-[#888888] mb-10">
-            {GUESTS.length} Aboard &nbsp;·&nbsp; Confirmed Only
+            {GUESTS.length} Aboard
           </p>
           <Divider />
           <p className="mt-10 text-base md:text-lg font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide max-w-xl mx-auto">
