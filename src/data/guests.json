@@ -2307,8 +2307,10 @@
     "githubUrl": null,
     "twitterUrl": null,
     "websiteUrl": null,
-    "context": "Xyla Engineering (raising preseed, $1.1M committed); 2 prior exits as founding team; ex-Google (recruited at 16), Boeing, Northrop; incoming CMU CS+Stats",
-    "flags": []
+    "context": "Xyla (preseed, $1.4M); 2 prior exits as founding team; ex-Google (recruited at 16), Boeing, Northrop; partner at 996 Ventures; CMU",
+    "flags": [
+      "investor"
+    ]
   },
   {
     "id": "cmra42obn00pjfdsjljjw7o70",
