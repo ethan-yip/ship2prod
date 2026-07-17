@@ -34,6 +34,7 @@ const SPONSORS: Sponsor[] = [
   { name: "Photon Framework", src: "/sponsors/photon.png", href: "https://photon.codes" },
   { name: "Soma Capital", src: "/sponsors/soma.png", href: "https://somacap.com" },
   { name: "Red Bull", src: "/sponsors/redbull.png", href: "https://redbull.com", size: "h-20 md:h-24", wrap: "-mx-6 md:-mx-8" },
+  { name: "Databricks", src: "/sponsors/databricks.png", href: "https://databricks.com" },
 ];
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
