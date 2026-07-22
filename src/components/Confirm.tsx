@@ -143,7 +143,7 @@ export const Confirm = () => {
             Confirm Attendance
           </h1>
           <p className="text-[11px] md:text-xs font-sans font-light tracking-[0.25em] uppercase text-[#888888] mb-10">
-            Pier 40 &nbsp;·&nbsp; Boarding by 6:45 PM
+            Pier 40 &nbsp;·&nbsp; Arrive by 6:30 PM
           </p>
           <Divider />
           <p className="mt-10 text-base md:text-lg font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide max-w-xl mx-auto">
@@ -355,7 +355,7 @@ function SuccessState({
       <p className="text-base md:text-lg font-sans font-normal text-[#2A2A2A] leading-relaxed tracking-wide max-w-lg mx-auto">
         {declined
           ? "Thank you for letting us know. Your seat will be released so another builder can join. We hope to see you at the next sail."
-          : "Your confirmation is in. We'll be in touch with final boarding details as the sail date approaches. Please arrive at Pier 40 no later than 6:45 PM — the vessel departs promptly at seven."}
+          : "Your confirmation is in. We'll be in touch with final boarding details as the sail date approaches. Please arrive at Pier 40 by 6:30 PM; boarding begins at 6:45 and the vessel departs promptly at seven."}
       </p>
 
       {onLumaList === false && (

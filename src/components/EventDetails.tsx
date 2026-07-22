@@ -3,10 +3,10 @@ import Lenis from "lenis";
 import { Marquee } from "./Marquee";
 
 const SCHEDULE: { time: string; event: string }[] = [
-  { time: "6:30 PM", event: "Gates Open — Pier 40" },
-  { time: "6:45 PM", event: "Boarding Concludes" },
+  { time: "6:30 PM", event: "Guests Arrive — Pier 40" },
+  { time: "6:45 PM", event: "Boarding Begins" },
   { time: "7:00 PM", event: "Vessel Departs" },
-  { time: "11:00 PM", event: "Return to Pier 40" },
+  { time: "9:45 PM", event: "Return to Pier 40" },
 ];
 
 const DIRECTIONS: { from: string; body: string; transit: string }[] = [
@@ -30,7 +30,7 @@ const DIRECTIONS: { from: string; body: string; transit: string }[] = [
 const NOTES: { title: string; body: string }[] = [
   {
     title: "On Arrival",
-    body: "Please arrive no later than 6:45 PM. The vessel departs promptly at seven and cannot return for late guests.",
+    body: "Please arrive at Pier 40 by 6:30 PM. Boarding begins at 6:45, and the vessel departs promptly at seven — it cannot return for late guests.",
   },
   {
     title: "On Identification",
@@ -42,7 +42,7 @@ const NOTES: { title: string; body: string }[] = [
   },
   {
     title: "On Return",
-    body: "The vessel returns to Pier 40 at 11:00 PM. Marked rideshare and taxi zones will be waiting at disembarkation.",
+    body: "The vessel returns to Pier 40 at 9:45 PM. Marked rideshare and taxi zones will be waiting at disembarkation.",
   },
 ];
 
@@ -105,13 +105,13 @@ export const EventDetails = () => {
             Event Details
           </h1>
           <p className="text-[11px] md:text-xs font-sans font-light tracking-[0.25em] uppercase text-[#888888] mb-12">
-            Pier 40 &nbsp;·&nbsp; Boarding by 6:45 PM
+            Pier 40 &nbsp;·&nbsp; Arrive by 6:30 PM
           </p>
           <Divider />
           <p className="mt-12 text-base md:text-lg font-sans font-light text-[#333333] leading-relaxed tracking-wide max-w-2xl mx-auto">
             The vessel departs promptly at seven. We ask each guest to arrive
-            no later than 6:45 PM to allow for a graceful boarding and a
-            timely sail.
+            at Pier 40 by 6:30 PM — boarding begins at 6:45, allowing for a
+            graceful embarkation and a timely sail.
           </p>
           <div className="mt-16 md:mt-20">
             <Divider />
