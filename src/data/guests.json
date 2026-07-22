@@ -2735,5 +2735,285 @@
     "websiteUrl": null,
     "context": null,
     "flags": []
+  },
+  {
+    "id": "cmrvlhler00q612n7lfpc9rj8",
+    "name": "Dan Zhang",
+    "photoUrl": null,
+    "company": "Ricursive Intelligence",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Ricursive Intelligence founding MTS",
+    "flags": []
+  },
+  {
+    "id": "cmrvlhtpa03hf12n7rfw4vydl",
+    "name": "Dennis Chen",
+    "photoUrl": null,
+    "company": "Interfaze (YC P26)",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Interfaze YC P26 founding GTM",
+    "flags": [
+      "yc"
+    ]
+  },
+  {
+    "id": "cmrvlhm5700zb12n7h2paw0ol",
+    "name": "Harnoor Singh",
+    "photoUrl": null,
+    "company": "HydraDB / Singh in USA",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "HydraDB DevRel (Jeff Dean backed) + YouTube creator interviewing YC founders",
+    "flags": [
+      "vc-backed"
+    ]
+  },
+  {
+    "id": "cmrvlhm1100xz12n7bmp5sx09",
+    "name": "HydraDB Events",
+    "photoUrl": null,
+    "company": "hydraDB",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "hydraDB founding engineer (Jeff Dean backed)",
+    "flags": [
+      "vc-backed"
+    ]
+  },
+  {
+    "id": "cmrvlhkx100jv12n7e13vctdv",
+    "name": "Jack Lu",
+    "photoUrl": null,
+    "company": "NVIDIA · NYU",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "NVIDIA research intern & NYU PhD — LLM reasoning and physical AI",
+    "flags": [
+      "research",
+      "big-ai-lab"
+    ]
+  },
+  {
+    "id": "cmra42nij00g1fdsjp5we0fp7",
+    "name": "Jason Xu",
+    "photoUrl": null,
+    "company": "Independent",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": null,
+    "flags": []
+  },
+  {
+    "id": "cmr6jj0fb01n2ugbxip6165c9",
+    "name": "Joe Maionchi",
+    "photoUrl": null,
+    "company": "RocketRide.ai",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "RocketRide.ai co-founder & COO, pre-seed, raising seed/A",
+    "flags": [
+      "founder",
+      "vc-backed"
+    ]
+  },
+  {
+    "id": "cmrn1dywx00priitgtxf2qxa6",
+    "name": "Lillian Ma",
+    "photoUrl": null,
+    "company": "GMI Cloud",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "GMI Cloud, head of global partnerships",
+    "flags": []
+  },
+  {
+    "id": "cmrvlhm6k00zv12n7qzycb81j",
+    "name": "Lisa Wang",
+    "photoUrl": null,
+    "company": "GMI Cloud",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "GMI Cloud",
+    "flags": []
+  },
+  {
+    "id": "cmrn1dxc80072iitgfk7awuhc",
+    "name": "Michael Hawkins",
+    "photoUrl": null,
+    "company": "Helios Cloud",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Helios Cloud Inc.",
+    "flags": []
+  },
+  {
+    "id": "cmri6pfgx00jhfgq4xt4iaajd",
+    "name": "Rishabh Dagli",
+    "photoUrl": null,
+    "company": "latice",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "latice — agentic robot fleet for autonomous farms, bootstrapped, first NJ pilots",
+    "flags": [
+      "founder"
+    ]
+  },
+  {
+    "id": "cmrvlhkfx00du12n7i2m5v4mu",
+    "name": "Roan Weigert",
+    "photoUrl": null,
+    "company": "GMI Cloud",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "GMI Cloud DevRel",
+    "flags": []
+  },
+  {
+    "id": "cmri6pf0z00eqfgq4lyl7nqoj",
+    "name": "Sammy Tourani",
+    "photoUrl": null,
+    "company": "Wealthsimple",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Wealthsimple; interviewing at VCs, going solo",
+    "flags": []
+  },
+  {
+    "id": "cmrn1dwwo001piitg0xbac6df",
+    "name": "Sanchit Garg",
+    "photoUrl": null,
+    "company": "Two Words Away",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Two Words Away founder (Shark Tank India × 3 sharks); SIGNIFY.AI ASL-to-speech research",
+    "flags": [
+      "founder",
+      "vc-backed",
+      "research"
+    ]
+  },
+  {
+    "id": "cmra42o1b00m2fdsjg1tz24bu",
+    "name": "Sriram Natarajan",
+    "photoUrl": null,
+    "company": "C3 AI",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "C3 AI Forward Deployed Engineer; stealth agentic-AI infra founder; UIUC Ward Lab ML researcher",
+    "flags": [
+      "founder",
+      "research"
+    ]
+  },
+  {
+    "id": "cmrvlhl7m00nm12n7boo7p2sm",
+    "name": "Tejpal Singh",
+    "photoUrl": null,
+    "company": "Diffuse Labs",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "Diffuse Labs co-founder",
+    "flags": [
+      "founder"
+    ]
+  },
+  {
+    "id": "cmrvlhnf601f412n7xqrpjqq9",
+    "name": "Yuchen Zhang",
+    "photoUrl": null,
+    "company": "CodePay",
+    "title": null,
+    "headline": null,
+    "bio": null,
+    "location": null,
+    "githubUrl": null,
+    "twitterUrl": null,
+    "websiteUrl": null,
+    "context": "CodePay founding designer/PM, solo builder",
+    "flags": [
+      "founder"
+    ]
   }
 ]
